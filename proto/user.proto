@@ -1,0 +1,41 @@
+syntax = "proto3";  //protobuf3协议
+package pb;
+
+//UserInfoRequest 请求
+message UserInfoRequest {
+    string name = 1;
+}
+
+//UserListRequest 请求
+message UserListRequest {
+    int64 page = 1;
+    int64 pageSize = 2;
+}
+
+//UserInfoReply 用户详情响应
+message UserInfoReply {
+    int64 id = 1;
+    string name = 2;
+    string nickname = 3;
+    string mobile = 4;
+    string email = 5;
+    int64 sex = 6;
+    string password = 7;
+    string salt = 8;
+    string created_at = 9;
+    string updated_at =10;
+}
+
+//UserListReplay 用户列表响应
+message UserListReplay {
+    int64 total = 1;
+    int64 last_page = 2;
+    repeated UserInfoReply data = 3;
+}
+
+
+//User User服务
+service User {
+    rpc List(UserListRequest)  returns (UserListReplay);
+    rpc Info(UserInfoRequest) returns (UserInfoReply);
+}
